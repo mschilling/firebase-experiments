@@ -17,9 +17,17 @@ jobs:
         with:
           node-version: 18
 
-      - name: Deploy to Firebase
+      - name: Deploy Hosting to Firebase
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
         env:
             GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Deploy Functions to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions
+        env:
+            GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+    
