@@ -4,9 +4,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  Build:
+  deployment:
     runs-on: ubuntu-latest
-
+    environment: 
+      name: production
+      url: https://arkid-firebase-experiments.web.app/
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
