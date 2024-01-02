@@ -1,9 +1,7 @@
-name: Firebase deploy workflow
+name: Firebase Hosting deploy workflow
 
 on:
   workflow_dispatch:
-
-# permissions: write-all
 
 jobs:
   Build:
@@ -21,13 +19,6 @@ jobs:
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
-        env:
-            GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
-
-      - name: Deploy Functions to Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only functions
         env:
             GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
     
