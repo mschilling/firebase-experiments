@@ -41,3 +41,19 @@ exports.activities = onRequest(async (request, response) => {
     response.status(500).send(err);
   }
 });
+
+exports.getActivity = onRequest(async (req, res) => {
+  const db = admin.firestore();
+
+  const { id } = req.query;
+  try {
+    const doc = await db.collection('activities').doc(id).get();
+    if (!doc.exists) {
+      res.status(404).send('No activity found');
+    } else {
+      res.send(doc.data());
+    }
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
