@@ -1,0 +1,32 @@
+name: Firebase deploy workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    environment: 
+      name: Test
+      url: https://arkid-firebase-experiments.web.app/
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4.0.0
+        with:
+          node-version: 20
+
+      - name: Install node modules
+        run: npm ci
+        working-directory: functions
+        env:
+            CI: true
+  
+      - name: Deploy Hosting to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy
+        env:
+            FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+    
